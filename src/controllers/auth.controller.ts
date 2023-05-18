@@ -47,5 +47,9 @@ export const singin = async (req: Request, res: Response) => {
 };
 
 export const profile = (req: Request, res: Response) => {
-  res.send("profile");
+  const user = User.findById(req.userId, { password: 0 });
+
+  if (!user) return res.status(404).json("No user found");
+
+  res.json(user);
 };
